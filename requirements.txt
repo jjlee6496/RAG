@@ -2,3 +2,11 @@ openai
 llama_index
 trulens_eval
 pypdf
+
+# Torch
+torch-2.1.1+cu118
+torchaudio-2.1.1+cu118
+torchvision-0.16.1+cu118
+
+# Re-ranker
+sentence-transformers
