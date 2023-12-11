@@ -53,3 +53,9 @@ def get_trulens_recorder(query_engine, app_id):
         feedbacks=feedbacks
     )
     return tru_recoder
+
+# evaluation 함수
+def run_evals(eval_questions, tru_recorder, query_engine):
+    for question in eval_questions:
+        with tru_recorder as recording:
+            response = query_engine.query(question)
