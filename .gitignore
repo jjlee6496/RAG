@@ -1,2 +1,6 @@
 .env
 document
+index
+default.sqlite
+.streamlit
+__pycache__
