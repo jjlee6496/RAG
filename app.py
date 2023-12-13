@@ -1,25 +1,35 @@
 import openai
-import os
-from dotenv import load_dotenv
+from llama_index import SimpleDirectoryReader
+from llama_index import Document
+from utils import get_openai_api_key, run_evals
+from query_engines.Sentence_window import build_sentence_window_engine_recorder
 from trulens_eval import Tru
 
-load_dotenv()
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.api_key = get_openai_api_key()
 
+# document parsing
+documents = SimpleDirectoryReader(
+    input_files=["./document/eBook-How-to-Build-a-Career-in-AI.pdf"] # 예시 pdf, 출처:https://info.deeplearning.ai/how-to-build-a-career-in-ai-book
+).load_data()
 
-# Evaluation
+document = Document(text="\n\n".join([doc.text for doc in documents]))
 
+# Evaluation을 위한 질문 불러오기
 eval_questions = []
-with open('generated_questions.text', 'r') as file:
+with open('test.text', 'r') as file:
     for line in file:
         # Remove newline character and convert to integer
         item = line.strip()
         eval_questions.append(item)
+        
+Tru.reset_database()
+sentence_window_query_engine, sentence_window_recorder = build_sentence_window_engine_recorder(
+                                                        documents=documents,
+                                                        index_dir='./index/test',
+                                                        window_size=5,
+                                                        app_id='test_app'
+                                                        )
 
+run_evals(eval_questions, sentence_window_recorder, sentence_window_query_engine)
 
-def run_evals(eval_questions, tru_recorder, query_engine):
-    for question in eval_questions:
-        with tru_recorder as recording:
-            response = query_engine.query(question)
-
-# run_evals(eval_questions, tru_recorder, auto_merging_engine_0)
+Tru().run_dashboard()
