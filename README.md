@@ -2,13 +2,14 @@
 - 기본 RAG와 Sentece-window, Auto-merging 기법을 활용한 advanced RAG 기법에 대해서 [Trulens](https://github.com/truera/trulens)를 이용하여 비교하는 프로젝트
 ## Basic RAG
 - 사용자에게 보다 정확한 Response를 제공하기 위해 추가적인 private 또는 real-time data 같은 추가적인 context를 제공하고, 이를 기반으로 response를 생성하는 방법이다.
-- 보통 문서를 불러와서 split하여 chunk를 생성, 이를 임베딩하여 vector database에 저장한 후 retrieve하여 사용자 프롬프트(쿼리)와 유사한 context를 제공하여 응답을 생성하는 구조이다.  
-![img1](https://python.langchain.com/assets/images/rag_indexing-8160f90a90a33253d0154659cf7d453f.png)![img2](https://python.langchain.com/assets/images/rag_retrieval_generation-1046a4668d6bb08786ef73c56d4f228a.png)  
+- 보통 문서를 불러와서 split하여 chunk를 생성, 이를 임베딩하여 vector database에 저장한 후 retrieve하여 사용자 프롬프트(쿼리)와 유사한 context를 제공하여 응답을 생성하는 구조이다.
+
+<table><tr><td><img src='https://python.langchain.com/assets/images/rag_indexing-8160f90a90a33253d0154659cf7d453f.png'></td><td><img src='https://python.langchain.com/assets/images/rag_retrieval_generation-1046a4668d6bb08786ef73c56d4f228a.png'></td></tr></table>
 - 하지만 retrieve할 때 chunk로 쪼개진 정보를 그대로 사용하여 충분한 context를 제공하지 못한다는 문제점이 있다.
 
 # RAG Triad
-![RAG Triad](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/RAG Triad.png)
-- RAG 성능을 평가하기 위해 다음 3가지 metric을 사용한다. 이를 RAG Triad라고 부른다.
+<br>![RAG Triad](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/RAG Triad.png)
+- RAG 성능을 평가하기 위해 다음 3가지 metric을 사용한다. 이를 RAG Triad라고 부른다.</br>
 ## Anaswer Relevance
 ## Context Relevance
 ## Groundedness
@@ -29,13 +30,13 @@
 - https://learn.deeplearning.ai/building-evaluating-advanced-rag/lesson/1/lesson_1
 
 # To-do
-[O] RAG 개념 정리
-[X] Basic RAG 코드 작성
-[X] RAG Triad 개념 정리
-[O] Sentence-window Retrieval 개념 정리
-[O] Sentence-window Retrieval 코드 작성
-[X] Auto-merging Retrieval 개념 정리
-[X] Auto-merging Retrieval 코드 작성
-[O] Evaluation 코드 작성
-[X] 전체 비교 실험 진행
-[X] 한국어 문서 비교 실험 진행
+- [X] RAG 개념 정리
+- [ ] Basic RAG 코드 작성
+- [ ] RAG Triad 개념 정리
+- [X] Sentence-window Retrieval 개념 정리
+- [X] Sentence-window Retrieval 코드 작성
+- [ ] Auto-merging Retrieval 개념 정리
+- [ ] Auto-merging Retrieval 코드 작성
+- [X] Evaluation 코드 작성
+- [ ] 전체 비교 실험 진행
+- [ ] 한국어 문서 비교 실험 진행
