@@ -8,8 +8,8 @@
 - 하지만 retrieve할 때 chunk로 쪼개진 정보를 그대로 사용하여 충분한 context를 제공하지 못한다는 문제점이 있다.
 
 # RAG Triad
-<br>![RAG Triad](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/RAG Triad.png)
-- RAG 성능을 평가하기 위해 다음 3가지 metric을 사용한다. 이를 RAG Triad라고 부른다.</br>
+![RAG Triad](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/RAG_Triad.png)
+- RAG 성능을 평가하기 위해 다음 3가지 metric을 사용한다. 이를 RAG Triad라고 부른다.
 ## Anaswer Relevance
 ## Context Relevance
 ## Groundedness
