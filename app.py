@@ -22,7 +22,6 @@ with open('test.text', 'r') as file:
         item = line.strip()
         eval_questions.append(item)
         
-Tru.reset_database()
 sentence_window_query_engine, sentence_window_recorder = build_sentence_window_engine_recorder(
                                                         documents=documents,
                                                         index_dir='./index/test',
