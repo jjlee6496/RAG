@@ -29,13 +29,13 @@
 - https://learn.deeplearning.ai/building-evaluating-advanced-rag/lesson/1/lesson_1
 
 # To-do
-- [O] RAG 개념 정리
-- [X] Basic RAG 코드 작성
-- [X] RAG Triad 개념 정리
-- [O] Sentence-window Retrieval 개념 정리
-- [O] Sentence-window Retrieval 코드 작성
-- [X] Auto-merging Retrieval 개념 정리
-- [X] Auto-merging Retrieval 코드 작성
-- [O] Evaluation 코드 작성
-- [X] 전체 비교 실험 진행
-- [X] 한국어 문서 비교 실험 진행
+[O] RAG 개념 정리
+[X] Basic RAG 코드 작성
+[X] RAG Triad 개념 정리
+[O] Sentence-window Retrieval 개념 정리
+[O] Sentence-window Retrieval 코드 작성
+[X] Auto-merging Retrieval 개념 정리
+[X] Auto-merging Retrieval 코드 작성
+[O] Evaluation 코드 작성
+[X] 전체 비교 실험 진행
+[X] 한국어 문서 비교 실험 진행
