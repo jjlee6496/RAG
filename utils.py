@@ -129,7 +129,7 @@ from trulens_eval.feedback import Groundedness
 
 # RAG Triad 로깅을 위한 recorder 생성
 def get_trulens_recorder(query_engine, app_id):
-    openai = OpenAI()
+    openai = OpenAI() # Feedback 함수로 활용하기 위해 gpt-3.5 모델을 provider로 사용.
     
     # Answer Relevance
     qa_relevance = (
