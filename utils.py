@@ -172,21 +172,21 @@ from trulens_eval.feedback import Groundedness
 def get_trulens_recorder(query_engine, app_id):
     openai = OpenAI() # Feedback 함수로 활용하기 위해 gpt-3.5 모델을 provider로 사용.
     
-    # Answer Relevance
+    # Answer Relevance - query와 response간 relevance
     qa_relevance = (
         Feedback(openai.relevance_with_cot_reasons, name="Answer Relevance")
         .on_input_output()
         )
     
-    # Context Relevance
+    # Context Relevance - context와 query간 relevance
     qs_relevance = (
         Feedback(openai.relevance_with_cot_reasons, name="Context Relevance")
         .on_input()
-        .on(TruLlama.select_source_nodes().node.text)
+        .on(TruLlama.select_source_nodes().node.text) # context selection
         .aggregate(np.mean)
     )
     
-    # Groundedness
+    # Groundedness - reponse의 context에 대한 기반성 평가
     # grounded = Groundedness(groundedness_provider=openai, summarize_provider=openai)
     grounded = Groundedness(groundedness_provider=openai)
     
