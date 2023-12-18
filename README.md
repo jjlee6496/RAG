@@ -11,19 +11,26 @@
 # RAG Triad
 ![RAG Triad](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/RAG_Triad.png)
 - RAG 성능을 평가하기 위해 다음 3가지 metric을 사용한다. 이를 RAG Triad라고 부른다.
-## [Anaswer Relevance](https://github.com/jjlee6496/RAG/blob/main/utils.py#L135)
-- Output Response가 user query와 얼마나 relevant한지 CoT로 판단한다.
-## [Context Relevance](https://github.com/jjlee6496/RAG/blob/main/utils.py#L141)
-- Output Response가 context(retrieved chunks)에 얼마나 relevant한지 CoT로 판단한다.
-## [Groundedness](https://github.com/jjlee6496/RAG/blob/main/utils.py#L152)
-- Output response가 context(retrieved chunks)에 얼마나 기반하는지에 대해 평가.
+## [Anaswer Relevance](https://github.com/jjlee6496/RAG/blob/main/utils.py#L176)
+- Output Response가 user query와 얼마나 relevant한지 LLM의 CoT(Chain of Thoughts)로 판단한다.
+- User query와 response 사이의 [QuestionStatementRelevance](https://github.com/truera/trulens/blob/21d3dcf6b7ef7ec7b0a7774ac6dbfc6bbd85b86b/trulens_eval/trulens_eval/feedback/v2/feedback.py#L208)를 계산하여 평가
+## [Context Relevance](https://github.com/jjlee6496/RAG/blob/main/utils.py#L182)
+- Context(retrieved chunks)가 query에 얼마나 relevant한지 LLM의 CoT(Chain of Thoughts)로 판단한다.
+- User query와 각각의 context사이의 [QuestionStatementRelevance](https://github.com/truera/trulens/blob/21d3dcf6b7ef7ec7b0a7774ac6dbfc6bbd85b86b/trulens_eval/trulens_eval/feedback/v2/feedback.py#L208)를 계산하여 평균을 계산하여 평가
+## [Groundedness](https://github.com/jjlee6496/RAG/blob/main/utils.py#L193)
+- Output response가 context(retrieved chunks)에 얼마나 기반하는지에 LLM의 CoT(Chain of Thoughts)로 response와 context의 information overlap에 대하여 평가.
 - Retrieval step에서 충분히 많은 관련된 context를 찾지 못한다면 context에 드러난 정보들을 기반으로 답변하는 것이 아닌 pre-trained information을 사용하게 된다. 이는 Groundedness를 떨어뜨린다.
+- [Groundedness 코드 부분](https://github.com/truera/trulens/blob/21d3dcf6b7ef7ec7b0a7774ac6dbfc6bbd85b86b/trulens_eval/trulens_eval/feedback/v2/feedback.py#L191)
 
 # Sentence-window
+- Sentence-window 기법은 기존 RAG의 문제점인 retrieve시 chunk로 쪼개진 정보를 그대로 사용하여 충분한 context를 제공하지 못한다는 문제점을 해결하기 위한 기법이다.
+- Retrieve된 context(잘려진 정보)를 metadata로 window size 만큼의 주변 문맥을 포함하도록 대체해 줌으로써 풍부한 context 정보를 얻게 된다.
+- [블로그 설명 글](https://velog.io/@jjlee6496/Building-and-Evaluating-Advanced-RAG-1#1-sentence-window-parsing)
 ## Result
 - Sentence-window 기법의 window 크기를 1, 3, 5로 늘려가면서 RAG Triad에 대한 성능 평가
 ![실험결과1](https://github.com/jjlee6496/RAG/blob/main/imgs/test/sentence_window_comparison.png)
 - window size가 커질수록 
+
 # Auto-merging
 
 ## Result
@@ -34,8 +41,8 @@
 
 # To-do
 - [X] RAG 개념 정리
-- [ ] Basic RAG 코드 작성
-- [ ] RAG Triad 개념 정리
+- [X] Basic RAG 코드 작성
+- [X] RAG Triad 개념 정리
 - [X] Sentence-window Retrieval 개념 정리
 - [X] Sentence-window Retrieval 코드 작성
 - [ ] Auto-merging Retrieval 개념 정리
