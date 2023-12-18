@@ -7,13 +7,54 @@ def get_openai_api_key():
 
     return os.getenv("OPENAI_API_KEY")
 
-# Sentence-window
+# Basic RAG
 from llama_index import ServiceContext, VectorStoreIndex, StorageContext
+from llama_index.text_splitter import SentenceSplitter
+
+def build_basic_rag_index(
+    documents,
+    llm,
+    embed_model="local:BAAI/bge-small-en-v1.5",
+    save_dir="basic"
+    ):
+    text_splitter = SentenceSplitter(chunk_size=1024, chunk_overlap=20)
+    sentence_context = ServiceContext.from_defaults(
+        llm=llm,
+        embed_model=embed_model,
+        text_splitter=text_splitter
+    )
+    if not os.path.exists(save_dir):
+        sentence_index = VectorStoreIndex.from_documents(
+            documents, service_context=sentence_context
+        )
+        sentence_index.storage_context.persist(persist_dir=save_dir)
+    else:
+        sentence_index = load_index_from_storage(
+            StorageContext.from_defaults(persist_dir=save_dir),
+            service_context=sentence_context,
+        )
+
+    return sentence_index
+
+def get_basic_rag_query_engine(
+    sentence_index,
+    similarity_top_k=6,
+    rerank_top_n=2,
+):
+    rerank = SentenceTransformerRerank(
+        top_n=rerank_top_n, model="BAAI/bge-reranker-base", device='cuda'
+    )
+
+    basic_rag_query_engine = sentence_index.as_query_engine(
+        similarity_top_k=similarity_top_k, node_postprocessors=[rerank]
+    )
+    return basic_rag_query_engine
+
+# Sentence-window
 from llama_index.node_parser import SentenceWindowNodeParser
 from llama_index.indices.postprocessor import MetadataReplacementPostProcessor
 from llama_index.indices.postprocessor import SentenceTransformerRerank
 from llama_index import load_index_from_storage
-import os
 
 def build_sentence_window_index(
     documents,
@@ -54,17 +95,16 @@ def get_sentence_window_query_engine(
     # define postprocessors
     postproc = MetadataReplacementPostProcessor(target_metadata_key="window")
     rerank = SentenceTransformerRerank(
-        top_n=rerank_top_n, model="BAAI/bge-reranker-base"
+        top_n=rerank_top_n, model="BAAI/bge-reranker-base", device='cuda'
     )
 
-    sentence_window_engine = sentence_index.as_query_engine(
+    sentence_window_query_engine = sentence_index.as_query_engine(
         similarity_top_k=similarity_top_k, node_postprocessors=[postproc, rerank]
     )
-    return sentence_window_engine
+    return sentence_window_query_engine
 
 # Auto-merging
 from llama_index.node_parser import HierarchicalNodeParser
-
 from llama_index.node_parser import get_leaf_nodes
 from llama_index import StorageContext
 from llama_index.retrievers import AutoMergingRetriever
@@ -112,12 +152,13 @@ def get_automerging_query_engine(
         base_retriever, automerging_index.storage_context, verbose=True
     )
     rerank = SentenceTransformerRerank(
-        top_n=rerank_top_n, model="BAAI/bge-reranker-base"
+        top_n=rerank_top_n, model="BAAI/bge-reranker-base", device='cuda'
     )
-    auto_merging_engine = RetrieverQueryEngine.from_args(
+    auto_merging_query_engine = RetrieverQueryEngine.from_args(
         retriever, node_postprocessors=[rerank]
     )
-    return auto_merging_engine
+    return auto_merging_query_engine
+
 # For Evaluation
 from trulens_eval import (
     Feedback,
