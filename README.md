@@ -4,7 +4,7 @@
 - 사용자에게 보다 정확한 Response를 제공하기 위해 추가적인 private 또는 real-time data 같은 추가적인 context를 제공하고, 이를 기반으로 response를 생성하는 방법이다.
 - 보통 문서를 불러와서 split하여 chunk를 생성, 이를 임베딩하여 vector database에 저장한 후 retrieve하여 사용자 프롬프트(쿼리)와 유사한 context를 제공하여 응답을 생성하는 구조이다.
 
-<table><tr><td><img src='https://python.langchain.com/assets/images/rag_indexing-8160f90a90a33253d0154659cf7d453f.png' width=4200></td><td><img src='https://python.langchain.com/assets/images/rag_retrieval_generation-1046a4668d6bb08786ef73c56d4f228a.png' width=4200></td></tr></table>  
+<table><tr><td><img src='https://python.langchain.com/assets/images/rag_indexing-8160f90a90a33253d0154659cf7d453f.png' width="4200"></td><td><img src='https://python.langchain.com/assets/images/rag_retrieval_generation-1046a4668d6bb08786ef73c56d4f228a.png' width="4200"></td></tr></table>  
 
 - 하지만 retrieve할 때 chunk로 쪼개진 정보를 그대로 사용하여 충분한 context를 제공하지 못한다는 문제점이 있다.
 
