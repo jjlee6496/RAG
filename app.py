@@ -21,7 +21,8 @@ with open('test.text', 'r') as file:
         # Remove newline character and convert to integer
         item = line.strip()
         eval_questions.append(item)
-        
+
+# Evaluate 할 쿼리엔진 생성        
 sentence_window_query_engine, sentence_window_recorder = build_sentence_window_engine_recorder(
                                                         documents=documents,
                                                         index_dir='./index/test',
@@ -29,6 +30,8 @@ sentence_window_query_engine, sentence_window_recorder = build_sentence_window_e
                                                         app_id='test_app'
                                                         )
 
+# 대시보드 생성
+tru = Tru()
+tru.reset_database()
 run_evals(eval_questions, sentence_window_recorder, sentence_window_query_engine)
-
-Tru().run_dashboard()
+tru.run_dashboard()
