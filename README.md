@@ -29,11 +29,20 @@
 ## Result
 - Sentence-window 기법의 window 크기를 1, 3, 5로 늘려가면서 RAG Triad에 대한 성능 평가
 ![실험결과1](https://github.com/jjlee6496/RAG/blob/main/imgs/test/sentence_window_comparison.png)
-- window size가 커질수록 
+- window size가 1에서 3이 되었을 때 Answer Relevance와 Context Relevance는 하락했지만 
 
 # Auto-merging
-
+- 
 ## Result
+![실험결과2](https://github.com/jjlee6496/RAG/blob/main/imgs/test/auto_merging_comparison.png)
+- layer를 2에서 3으로 늘렸을 때 Groundedness가 상승했지만 Answer Relevance와 Context Relevance는 하락했다
+- layer를 4로 늘렸을 때 3개지표 모두 개선은 없었다.
+
+# 전체 결과
+
+- Auto Merging기법이 Sentence window기법보다 많은 토큰을 사용했다.
+- Auto Merging기법은 Groundedness가 전체적으로 높지만 Context Relevance는 매우 낮았다.
+- Sentene window기법(window size가 5 일때)이 비용, RAG Triad 면에서 가장 좋다고 생각된다.
 
 # Reference
 - https://python.langchain.com/docs/use_cases/question_answering/
@@ -46,7 +55,12 @@
 - [X] Sentence-window Retrieval 개념 정리
 - [X] Sentence-window Retrieval 코드 작성
 - [ ] Auto-merging Retrieval 개념 정리
-- [ ] Auto-merging Retrieval 코드 작성
+- [X] Auto-merging Retrieval 코드 작성
 - [X] Evaluation 코드 작성
-- [ ] 전체 비교 실험 진행
+- [ ] 전체 비교 실험 결과 추가
 - [ ] 한국어 문서 비교 실험 진행
+
+# 한계점
+- LLM을 사용해서 평가하는 만큼 편리하지만 비용이 발생한다.
+- 실험할 때 마다 맥락은 비슷하지만 결과값이 조금씩 변한다.
+- 문서의 구조나 내용마다 성능이 다를 수 있다.
