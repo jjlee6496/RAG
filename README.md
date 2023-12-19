@@ -34,10 +34,11 @@
 - window size가 5일때 Groundedness와 Context Relevance모두 상승했다.
 
 # Auto-merging
-- 기존 RAG는 Retrieve시 많은 chunks를 살펴보는데, 이때 chunking이 잘 되지 않았다면 살펴보는 횟수도 많아지고, 중복된 맥락을 볼 가능성이 높아진다. 이를 방지하기 위해 hierachical을 사용하다.
-![Auto_merging_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Auto_merging_Retrieval.ㅔㅜㅎ)  
+- 기존 RAG는 Retrieve시 많은 chunks를 살펴보는데, 이때 chunking이 잘 되지 않았다면 살펴보는 횟수도 많아지고, 중복된 맥락을 볼 가능성이 높아진다. 이를 방지하기 위해 hierachical을 사용한다.
+![Auto_merging_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Auto_merging_Retrieval.png)  
 - Auto-merging 기법은 [HierarchicalNodeParser](https://github.com/run-llama/llama_index/blob/main/llama_index/node_parser/relational/hierarchical.py#L43)를 사용하여 문서를 계층화하여 사용한다.
 - 계층화된 관계성을 살펴보며 일정[Threshold](https://github.com/run-llama/llama_index/blob/main/llama_index/retrievers/auto_merging_retriever.py#L12)를 넘어서면, 즉 현재 처리하는 노드의 자식노드의 수가 전체 자식 노드수에서 threshold보다 높다면 이를 하나의 맥락으로 판단한다. 따라서 child node를 parent노드와 합치면서 context사이즈를 늘려 보강해준다.
+- [블로그 설명 글](https://velog.io/@jjlee6496/Building-and-Evaluating-Advanced-RAG-2)
 ## Result
 ![실험결과2](https://github.com/jjlee6496/RAG/blob/main/imgs/test/auto_merging_comparison.png)
 - layer를 2에서 3으로 늘렸을 때 Groundedness가 상승했지만 Answer Relevance와 Context Relevance는 하락했다
