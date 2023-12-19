@@ -24,7 +24,7 @@
 
 # Sentence-window
 - Sentence-window 기법은 기존 RAG의 문제점인 retrieve시 chunk로 쪼개진 정보를 그대로 사용하여 충분한 context를 제공하지 못한다는 문제점을 해결하기 위한 기법이다.
-![Sentence_window_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Sentence_window_Retrieval)
+![Sentence_window_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Sentence_window_Retrieval.png)
 - Retrieve된 context(잘려진 정보)를 metadata로 window size 만큼의 주변 문맥을 포함하도록 대체해 줌으로써 풍부한 context 정보를 얻게 된다.
 - [블로그 설명 글](https://velog.io/@jjlee6496/Building-and-Evaluating-Advanced-RAG-1#1-sentence-window-parsing)
 ## Result
@@ -35,7 +35,7 @@
 
 # Auto-merging
 - 기존 RAG는 Retrieve시 많은 chunks를 살펴보는데, 이때 chunking이 잘 되지 않았다면 살펴보는 횟수도 많아지고, 중복된 맥락을 볼 가능성이 높아진다. 이를 방지하기 위해 hierachical을 사용하다.
-![Auto_merging_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Auto_merging_Retrieval)  
+![Auto_merging_Retrieval](https://github.com/jjlee6496/RAG/blob/main/imgs/readme/Auto_merging_Retrieval.ㅔㅜㅎ)  
 - Auto-merging 기법은 [HierarchicalNodeParser](https://github.com/run-llama/llama_index/blob/main/llama_index/node_parser/relational/hierarchical.py#L43)를 사용하여 문서를 계층화하여 사용한다.
 - 계층화된 관계성을 살펴보며 일정[Threshold](https://github.com/run-llama/llama_index/blob/main/llama_index/retrievers/auto_merging_retriever.py#L12)를 넘어서면, 즉 현재 처리하는 노드의 자식노드의 수가 전체 자식 노드수에서 threshold보다 높다면 이를 하나의 맥락으로 판단한다. 따라서 child node를 parent노드와 합치면서 context사이즈를 늘려 보강해준다.
 ## Result
