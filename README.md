@@ -45,10 +45,26 @@
 - layer를 4로 늘렸을 때 3개지표 모두 개선은 없었다.
 
 # 전체 결과
+10개의 문장으로 실험
+|  | Cost(USD) | Total Tokens | Answer Relevance | Groundedness | Context Relevance |
+| --- | --- | --- | --- | --- | --- |
+| Basic RAG | 0.02 | 11.13k | 0.96 | 0.77 | 0.46 |
+| Sentence-window size 1 | 0.01 | **4.35k** | 0.98 | 0.87 | 0.67 |
+| Sentence-window size 3 | 0.01 | 5.08k |**1** | 0.8 | **0.72** |
+| Sentence-window size 5 | 0.01 | 8.23k | 0.99 | 0.85 | 0.68 |
+| Auto-merging 2 Layers | 0.04 | 26.05k | 0.98 | 0.86 | 0.27 |
+| Auto-merging 3 Layers | 0.02 | 13.12k | 0.99 | **0.89** | 0.28 |
+| Auto-merging 4 Layers | 0.01 | 5.51k | 0.99 | 0.7 | 0.22 |
 
 - Auto Merging기법이 Sentence window기법보다 많은 토큰을 사용했다.
-- Auto Merging기법은 Groundedness가 전체적으로 높지만 Context Relevance는 매우 낮았다.
-- Sentene window기법(window size가 5 일때)이 비용, RAG Triad 면에서 가장 좋다고 생각된다.
+- Auto Merging기법은 Groundedness가 전체적으로 좀 더 높지만 Context Relevance는 매우 낮았다.
+- window size 3 또는 5가 이 문서에서는 좋은 모델로 판단이 된다.
+
+# 한계점
+- LLM을 사용해서 평가하는 만큼 편리하지만 비용이 발생한다.
+- 일관된 결과를 얻기 위해서 최소 더 많은 문장을 평가해봐야 한다.
+- 실험할 때 마다 맥락은 비슷하지만 결과값이 조금씩 변한다.
+- 문서의 구조나 내용마다 성능이 다를 수 있다.
 
 # Reference
 - https://python.langchain.com/docs/use_cases/question_answering/
@@ -63,11 +79,5 @@
 - [X] Auto-merging Retrieval 개념 정리
 - [X] Auto-merging Retrieval 코드 작성
 - [X] Evaluation 코드 작성
-- [ ] 전체 비교 실험 결과 추가
+- [X] 전체 비교 실험 결과 추가
 - [ ] 한국어 문서 비교 실험 진행
-
-# 한계점
-- LLM을 사용해서 평가하는 만큼 편리하지만 비용이 발생한다.
-- 비용을 고려하여 5개의 문장만 평가했지만, 일관된 결과를 얻기 위해서 최소 10개 이상의 문장은 평가해봐야 한다.
-- 실험할 때 마다 맥락은 비슷하지만 결과값이 조금씩 변한다.
-- 문서의 구조나 내용마다 성능이 다를 수 있다.
